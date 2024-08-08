@@ -1,7 +1,11 @@
 import type { AWS } from "@serverless/typescript";
 
-import hello from "@functions/hello";
 import tweet from "@functions/tweet";
+import { config } from "dotenv";
+
+config({
+  path: ".env.local",
+});
 
 const serverlessConfiguration: AWS = {
   service: "ttddtdd",
@@ -19,6 +23,12 @@ const serverlessConfiguration: AWS = {
     apiGateway: {
       minimumCompressionSize: 1024,
       shouldStartNameWithService: true,
+      apiKeys: [
+        {
+          name: "api-key",
+          value: process.env.API_KEY as string,
+        },
+      ],
     },
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
@@ -26,7 +36,7 @@ const serverlessConfiguration: AWS = {
     },
   },
   // import the function via paths
-  functions: { hello, tweet },
+  functions: { tweet },
   package: { individually: true },
   custom: {
     esbuild: {
