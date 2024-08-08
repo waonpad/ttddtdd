@@ -16,5 +16,16 @@ export default {
         },
       },
     },
+    // {
+    //   schedule: {
+    //     rate: ["rate(1 minute)"],
+    //     input: {
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: "null",
+    //     },
+    //   },
+    // },
   ],
 };

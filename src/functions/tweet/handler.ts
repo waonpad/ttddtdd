@@ -2,6 +2,7 @@ import { type ValidatedEventAPIGatewayProxyEvent, formatJSONResponse } from "@li
 import { middyfy } from "@libs/lambda";
 import { TwitterApiReadWrite } from "twitter-api-v2";
 import type schema from "./schema";
+import { createTendonRhythmString, isTendonString } from "./tendon";
 
 const env = process.env;
 
@@ -17,21 +18,37 @@ const client = new TwitterApiReadWrite({
 });
 
 const handler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
-  const user = await client.currentUserV2();
-  console.log(user);
+  const tendonRhythmString = createTendonRhythmString();
 
-  const tweetContent = `APIからのツイート ${new Date().toISOString()}`;
+  console.log(tendonRhythmString);
+
+  if (isTendonString(tendonRhythmString)) {
+    console.log("てんてんどんどん てんどんどん");
+
+    // TODO: 通知処理
+  }
+
+  const tweetContent = tendonRhythmString;
 
   const tweetResult = await client.v2.tweet(tweetContent);
-  console.log(tweetResult);
+
+  // TODO: 保存処理
+
+  // const user = await client.currentUserV2();
+  // console.log(user);
+
+  // const tweetContent = `APIからのツイート ${new Date().toISOString()}`;
+
+  // const tweetResult = await client.v2.tweet(tweetContent);
+  // console.log(tweetResult);
 
   // const deleteResult = await client.v2.deleteTweet(tweetResult.data.id);
   // console.log(deleteResult);
 
   return formatJSONResponse({
-    event,
-    user,
     tweetResult,
+    event,
+    // user,
   });
 };
 
