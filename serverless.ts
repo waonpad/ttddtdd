@@ -2,6 +2,7 @@ import type { AWS } from "@serverless/typescript";
 
 import tweet from "@functions/tweet";
 import { config } from "dotenv";
+import { TweetDynamoDbTable } from "./resources";
 
 config({
   path: ".env.local",
@@ -14,6 +15,7 @@ const serverlessConfiguration: AWS = {
     "serverless-esbuild",
     "serverless-offline", // 追加した
     "serverless-dotenv-plugin", // 追加した
+    "serverless-dynamodb", // 追加した
   ],
   provider: {
     name: "aws",
@@ -34,6 +36,28 @@ const serverlessConfiguration: AWS = {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
       NODE_OPTIONS: "--enable-source-maps --stack-trace-limit=1000",
     },
+    iam: {
+      role: {
+        statements: [
+          {
+            Effect: "Allow",
+            Action: [
+              "dynamodb:Query",
+              "dynamodb:Scan",
+              "dynamodb:GetItem",
+              "dynamodb:PutItem",
+              "dynamodb:UpdateItem",
+              "dynamodb:DeleteItem",
+              "dynamodb:DescribeStream",
+              "dynamodb:GetRecords",
+              "dynamodb:GetShardIterator",
+              "dynamodb:ListStreams",
+            ],
+            Resource: ["*"],
+          },
+        ],
+      },
+    },
   },
   // import the function via paths
   functions: { tweet },
@@ -48,6 +72,27 @@ const serverlessConfiguration: AWS = {
       define: { "require.resolve": undefined },
       platform: "node",
       concurrency: 10,
+    },
+    dynamodb: {
+      stages: ["local"],
+      start: {
+        port: 8000,
+        inMemory: true,
+        migrate: true,
+        seed: true,
+      },
+      seed: {
+        development: {
+          sources: {
+            table: "tweets",
+          },
+        },
+      },
+    },
+  },
+  resources: {
+    Resources: {
+      TweetDynamoDbTable,
     },
   },
 };
