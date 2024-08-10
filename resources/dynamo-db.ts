@@ -9,7 +9,7 @@ export const TweetDynamoDbTable = {
         AttributeType: "S",
       },
       {
-        AttributeName: "text",
+        AttributeName: "createdAt",
         AttributeType: "S",
       },
     ],
@@ -19,7 +19,7 @@ export const TweetDynamoDbTable = {
         KeyType: "HASH",
       },
       {
-        AttributeName: "text",
+        AttributeName: "createdAt",
         KeyType: "RANGE",
       },
     ],
