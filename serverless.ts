@@ -1,5 +1,6 @@
 import type { AWS } from "@serverless/typescript";
 
+import getTweets from "@functions/get-tweets";
 import tweet from "@functions/tweet";
 import { config } from "dotenv";
 import { TweetDynamoDbTable } from "./resources";
@@ -8,24 +9,19 @@ config({
   path: ".env.local",
 });
 
-const serverlessConfiguration: AWS = {
+const serverlessConfiguration = {
   service: "ttddtdd",
   frameworkVersion: "3",
-  plugins: [
-    "serverless-esbuild",
-    "serverless-offline", // 追加した
-    "serverless-dotenv-plugin", // 追加した
-    "serverless-dynamodb", // 追加した
-  ],
+  plugins: ["serverless-esbuild", "serverless-offline", "serverless-dotenv-plugin", "serverless-dynamodb"],
   provider: {
     name: "aws",
-    // runtime: "nodejs14.x",
-    runtime: "nodejs20.x", // 上のだとデプロイできなかった
-    // region: "ap-northeast-1", // 東京に設定
+    runtime: "nodejs20.x",
+    // region: "ap-northeast-1", // 東京に設定する場合
     apiGateway: {
       minimumCompressionSize: 1024,
       shouldStartNameWithService: true,
       apiKeys: [
+        // nameとvalueをオブジェクトで指定する
         {
           name: "api-key",
           value: process.env.API_KEY as string,
@@ -59,8 +55,10 @@ const serverlessConfiguration: AWS = {
       },
     },
   },
-  // import the function via paths
-  functions: { tweet },
+  /**
+   * ここに関数を追加していく
+   */
+  functions: { tweet, getTweets },
   package: { individually: true },
   custom: {
     esbuild: {
@@ -73,6 +71,9 @@ const serverlessConfiguration: AWS = {
       platform: "node",
       concurrency: 10,
     },
+    /**
+     * dynamodbの設定
+     */
     dynamodb: {
       stages: ["local"],
       start: {
@@ -81,20 +82,16 @@ const serverlessConfiguration: AWS = {
         migrate: true,
         seed: true,
       },
-      seed: {
-        development: {
-          sources: {
-            table: "tweets",
-          },
-        },
-      },
     },
   },
   resources: {
+    /**
+     * ここにリソースを追加していく
+     */
     Resources: {
       TweetDynamoDbTable,
     },
   },
-};
+} as const satisfies AWS;
 
 module.exports = serverlessConfiguration;

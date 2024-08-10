@@ -1,6 +1,8 @@
+import { PutCommand } from "@aws-sdk/lib-dynamodb";
 import { type ValidatedEventAPIGatewayProxyEvent, formatJSONResponse } from "@libs/api-gateway";
+import { db } from "@libs/aws";
 import { middyfy } from "@libs/lambda";
-import * as AWS from "aws-sdk";
+import { TweetDynamoDbTable } from "resources";
 // import { TwitterApiReadWrite } from "twitter-api-v2";
 import type schema from "./schema";
 import { createTendonRhythmString, isTendonString } from "./tendon";
@@ -21,30 +23,21 @@ import { createTendonRhythmString, isTendonString } from "./tendon";
 const handler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
   const tendonRhythmString = createTendonRhythmString();
 
-  console.log("作成結果", tendonRhythmString);
-
   if (isTendonString(tendonRhythmString)) {
-    console.log("てんてんどんどん てんどんどん");
-
     // TODO: 通知処理
   }
 
-  const db = new AWS.DynamoDB.DocumentClient({
-    region: "localhost",
-    endpoint: "http://localhost:8000",
+  const putCommnad = new PutCommand({
+    TableName: TweetDynamoDbTable.Properties.TableName,
+    Item: {
+      id: new Date().toISOString(),
+      text: tendonRhythmString,
+    },
   });
 
-  const insertResult = await db
-    .put({
-      TableName: "tweets",
-      Item: {
-        id: new Date().toISOString(),
-        text: tendonRhythmString,
-      },
-    })
-    .promise();
+  const insertResult = await db.send(putCommnad);
 
-  console.log("DBインサート結果", insertResult);
+  console.log("DB挿入結果", insertResult);
 
   // const tweetContent = tendonRhythmString;
 
@@ -63,11 +56,18 @@ const handler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event)
   // const deleteResult = await client.v2.deleteTweet(tweetResult.data.id);
   // console.log(deleteResult);
 
-  return formatJSONResponse({
-    // tweetResult,
-    event,
-    // user,
-  });
+  const res = formatJSONResponse(
+    {
+      insertResult,
+      // tweetResult,
+      // user,
+    },
+    201,
+  );
+
+  console.log({ event, res });
+
+  return res;
 };
 
 export const main = middyfy(handler);

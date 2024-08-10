@@ -21,8 +21,5 @@
     ".webpack/**/*",
     "_warmup/**/*",
     ".vscode/**/*"
-  ],
-  "ts-node": {
-    "require": ["tsconfig-paths/register"]
-  }
+  ]
 }

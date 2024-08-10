@@ -1,3 +1,5 @@
+import type { DbResource } from "src/types";
+
 export const TweetDynamoDbTable = {
   Type: "AWS::DynamoDB::Table",
   Properties: {
@@ -27,4 +29,4 @@ export const TweetDynamoDbTable = {
     },
     TableName: "tweets",
   },
-};
+} as const satisfies DbResource;

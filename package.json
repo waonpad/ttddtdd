@@ -14,15 +14,17 @@
     "tst": "echo 'vitest run してください'",
     "tst:w": "vitest watch --silent",
     "tst:ci": "vitest run --silent",
-    "dbinstall": "sls dynamodb install",
-    "dbmigrate": "sls dynamodb migrate --stage local",
-    "dbstart": "sls dynamodb start --stage local",
-    "dbadmin": "npx dynamodb-admin -o"
+    "db:i": "sls dynamodb install",
+    "db:mig": "sls dynamodb migrate --stage local",
+    "db:start": "sls dynamodb start --stage local",
+    "db:admin": "npx dynamodb-admin -o"
   },
   "engines": {
-    "node": ">=14.15.0"
+    "node": ">=20.0.0"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.624.0",
+    "@aws-sdk/lib-dynamodb": "^3.624.0",
     "@middy/core": "^3.4.0",
     "@middy/http-json-body-parser": "^3.4.0",
     "twitter-api-v2": "^1.17.2"
@@ -41,8 +43,6 @@
     "serverless-dynamodb": "^0.2.54",
     "serverless-esbuild": "^1.23.3",
     "serverless-offline": "^14.0.0",
-    "ts-node": "^10.4.0",
-    "tsconfig-paths": "^3.9.0",
     "typescript": "^5.5.4",
     "vitest": "^2.0.5"
   },

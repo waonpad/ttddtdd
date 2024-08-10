@@ -1,4 +1,5 @@
 import { handlerPath } from "@libs/handler-resolver";
+import type { LambdaFunctionInfo } from "src/types";
 import schema from "./schema";
 
 export default {
@@ -18,7 +19,8 @@ export default {
     },
     // {
     //   schedule: {
-    //     rate: ["rate(1 minute)"],
+    //     //     rate: ["rate(30 minute)"],
+    //     rate: ["cron(0,30 * * * ? *)"],
     //     input: {
     //       headers: {
     //         "Content-Type": "application/json",
@@ -28,4 +30,4 @@ export default {
     //   },
     // },
   ],
-};
+} as const satisfies LambdaFunctionInfo;
