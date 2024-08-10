@@ -10,6 +10,11 @@ export const letters = [
   "や",       "ゆ",      "よ",
   "ら", "り", "る", "れ", "ろ",
   "わ",
+  "が", "ぎ", "ぐ", "げ", "ご",
+  "ざ", "じ", "ず", "ぜ", "ぞ",
+  "だ", "ぢ", "づ", "で", "ど",
+  "ば", "び", "ぶ", "べ", "ぼ",
+  "ぱ", "ぴ", "ぷ", "ぺ", "ぽ"
 ] as const
 
 export type TendonRhythmString = `${string}ん${string}ん${string}ん${string}ん ${string}ん${string}ん${string}ん`;
