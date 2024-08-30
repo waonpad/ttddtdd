@@ -1,6 +1,6 @@
+import { formatJSONResponse } from "@/libs/api-gateway";
+import { middyfy } from "@/libs/lambda";
 import { ScanCommand, type ScanCommandOutput } from "@aws-sdk/lib-dynamodb";
-import { formatJSONResponse } from "@libs/api-gateway";
-import { middyfy } from "@libs/lambda";
 import type { APIGatewayProxyHandlerV2 } from "aws-lambda";
 import { db } from "src/db";
 import { type Tweet, TweetDynamoDbTable } from "src/db/tables/tweets";

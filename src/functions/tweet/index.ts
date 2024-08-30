@@ -1,4 +1,4 @@
-import { handlerPath } from "@libs/handler-resolver";
+import { handlerPath } from "@/libs/handler-resolver";
 import type { LambdaFunctionInfo } from "src/types";
 // import schema from "./schema";
 
