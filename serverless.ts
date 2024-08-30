@@ -1,7 +1,7 @@
 import type { AWS } from "@serverless/typescript";
 
-import getTweets from "@functions/get-tweets";
-import tweet from "@functions/tweet";
+import getTweets from "@/functions/get-tweets";
+import tweet from "@/functions/tweet";
 import { config } from "dotenv";
 import { dbTables } from "./src/db/tables";
 

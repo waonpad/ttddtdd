@@ -1,6 +1,6 @@
+import { type ValidatedEventAPIGatewayProxyEvent, formatJSONResponse } from "@/libs/api-gateway";
+import { middyfy } from "@/libs/lambda";
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
-import { type ValidatedEventAPIGatewayProxyEvent, formatJSONResponse } from "@libs/api-gateway";
-import { middyfy } from "@libs/lambda";
 import { env } from "src/constants/env";
 import { db } from "src/db";
 import { type Tweet, TweetDynamoDbTable } from "src/db/tables/tweets";

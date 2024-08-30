@@ -1,1 +1,1 @@
-bun run tst
+bun run tsc && bun run tst
