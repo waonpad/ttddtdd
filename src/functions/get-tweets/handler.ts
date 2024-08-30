@@ -1,15 +1,18 @@
-import { ScanCommand } from "@aws-sdk/lib-dynamodb";
+import { ScanCommand, type ScanCommandOutput } from "@aws-sdk/lib-dynamodb";
 import { formatJSONResponse } from "@libs/api-gateway";
-import { db } from "@libs/aws";
 import { middyfy } from "@libs/lambda";
 import type { APIGatewayProxyHandlerV2 } from "aws-lambda";
+import { db } from "src/db";
+import { type Tweet, TweetDynamoDbTable } from "src/db/tables/tweets";
 
 const handler: APIGatewayProxyHandlerV2 = async (event) => {
   const scanCommand = new ScanCommand({
-    TableName: "tweets",
+    TableName: TweetDynamoDbTable.Properties.TableName,
   });
 
-  const history = await db.send(scanCommand);
+  const history = (await db.send(scanCommand)) as Omit<ScanCommandOutput, "Items"> & {
+    Items?: Tweet[];
+  };
 
   const res = formatJSONResponse({ history }, 200);
 

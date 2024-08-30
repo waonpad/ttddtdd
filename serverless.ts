@@ -3,16 +3,27 @@ import type { AWS } from "@serverless/typescript";
 import getTweets from "@functions/get-tweets";
 import tweet from "@functions/tweet";
 import { config } from "dotenv";
-import { TweetDynamoDbTable } from "./resources";
+import { dbTables } from "./src/db/tables";
 
 config({
   path: ".env.local",
 });
 
+const env = process.env;
+
 const serverlessConfiguration = {
-  service: "ttddtdd",
+  service: env.SERVICE_NAME as string,
   frameworkVersion: "3",
-  plugins: ["serverless-esbuild", "serverless-offline", "serverless-dotenv-plugin", "serverless-dynamodb"],
+  plugins: [
+    "serverless-esbuild",
+    "serverless-offline",
+    /**
+     * NODE_ENVも--stageオプションもつけない場合、.env.development, .env.development.local を自動で読み込もうとする
+     * @see [Serverless Dotenv Plugin - Serverless Framework: Plugins](https://www.serverless.com/plugins/serverless-dotenv-plugin#automatic-env-file-resolution)
+     */
+    "serverless-dotenv-plugin",
+    "serverless-dynamodb",
+  ],
   provider: {
     name: "aws",
     runtime: "nodejs20.x",
@@ -23,8 +34,12 @@ const serverlessConfiguration = {
       apiKeys: [
         // nameとvalueをオブジェクトで指定する
         {
+          /**
+           * private: true なイベントにアクセスする際に必要
+           * リクエストヘッダーに x-api-key: {value} を追加する
+           */
           name: "api-key",
-          value: process.env.API_KEY as string,
+          value: env.API_KEY as string,
         },
       ],
     },
@@ -89,7 +104,7 @@ const serverlessConfiguration = {
      * ここにリソースを追加していく
      */
     Resources: {
-      TweetDynamoDbTable,
+      ...dbTables,
     },
   },
 } as const satisfies AWS;
