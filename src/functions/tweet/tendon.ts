@@ -15,20 +15,20 @@ export const letters = [
   "だ", "ぢ", "づ", "で", "ど",
   "ば", "び", "ぶ", "べ", "ぼ",
   "ぱ", "ぴ", "ぷ", "ぺ", "ぽ"
-] as const
+] as const satisfies string[]
 
 export type TendonRhythmString = `${string}ん${string}ん${string}ん${string}ん ${string}ん${string}ん${string}ん`;
 
 export type TendonString = "てんてんどんどん てんどんどん";
 
 export const createTendonRhythmString = (): TendonRhythmString => {
-  const pickerLetters: string[] = new Array(7);
-  for (let i = 0; i < 7; i++) {
+  const pickerLetters: string[] = new Array(4);
+  for (let i = 0; i < 4; i++) {
     pickerLetters[i] = letters[Math.floor(Math.random() * letters.length)];
   }
 
   const tendonRhythmString =
-    `${pickerLetters[0]}ん${pickerLetters[1]}ん${pickerLetters[2]}ん${pickerLetters[3]}ん ${pickerLetters[4]}ん${pickerLetters[5]}ん${pickerLetters[6]}ん` as TendonRhythmString;
+    `${pickerLetters[0]}ん${pickerLetters[0]}ん${pickerLetters[1]}ん${pickerLetters[1]}ん ${pickerLetters[2]}ん${pickerLetters[3]}ん${pickerLetters[3]}ん` as TendonRhythmString;
 
   return tendonRhythmString;
 };
