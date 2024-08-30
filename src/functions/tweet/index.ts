@@ -5,6 +5,7 @@ import type { LambdaFunctionInfo } from "src/types";
 export default {
   handler: `${handlerPath(__dirname)}/handler.main`,
   events: [
+    // ローカル開発等でAPIとして公開する場合
     // {
     //   http: {
     //     method: "post",
@@ -19,8 +20,8 @@ export default {
     // },
     {
       schedule: {
-        //     rate: ["rate(30 minute)"],
-        rate: ["cron(0,30 * * * ? *)"],
+        // rate: ["rate(30 minute)"], // 30分ごと
+        rate: ["cron(0,30 * * * ? *)"], // 毎時0分と30分
         input: {
           headers: {
             "Content-Type": "application/json",
