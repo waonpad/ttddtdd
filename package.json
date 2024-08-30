@@ -5,7 +5,7 @@
   "main": "serverless.ts",
   "scripts": {
     "prepare": "husky",
-    "setup": "$npm_execpath install && cp -n .env.local.example .env.local",
+    "setup": "$npm_execpath install && $npm_execpath run db:i && cp -n .env.local.example .env.local",
     "dev": "sls offline",
     "deploy": "sls deploy",
     "fmt": "biome format --write .",
