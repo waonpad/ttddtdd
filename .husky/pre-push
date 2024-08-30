@@ -1,1 +1,1 @@
-bun run tst
+$npm_execpath run tsc && $npm_execpath run tst
