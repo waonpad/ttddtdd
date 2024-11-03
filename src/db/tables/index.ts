@@ -1,4 +1,4 @@
-import type { DbTable } from "src/types";
+import type { DbTable } from "@/types";
 import { TweetDynamoDbTable } from "./tweets";
 
 export const dbTables = {

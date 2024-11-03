@@ -1,4 +1,4 @@
-import type { DbTable } from "src/types";
+import type { DbTable } from "@/types";
 
 export type Tweet = {
   id: string;

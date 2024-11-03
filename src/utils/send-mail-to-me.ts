@@ -1,5 +1,5 @@
+import { env } from "@/constants/env";
 import { createTransport } from "nodemailer";
-import { env } from "src/constants/env";
 
 if (!env.MY_GMAIL || !env.MY_GMAIL_PASSWORD) {
   throw new Error("Gmail keys are not set");

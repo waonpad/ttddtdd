@@ -1,5 +1,4 @@
 {
-  "extends": "./tsconfig.paths.json",
   "compilerOptions": {
     "lib": ["ESNext"],
     "moduleResolution": "node",
@@ -12,9 +11,13 @@
     // Best practices
     "strict": true,
     "skipLibCheck": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
-  "include": ["src/**/*.ts", "serverless.ts"],
+  "include": ["src/**/*.ts", "serverless.ts", "globals.d.ts"],
   "exclude": [
     "node_modules/**/*",
     ".serverless/**/*",

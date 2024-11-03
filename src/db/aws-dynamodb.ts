@@ -1,6 +1,6 @@
+import { env } from "@/constants/env";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
-import { env } from "src/constants/env";
 
 /**
  * @see [【AWS SDK for JavaScript v3】DynamoDB操作のあれこれをTypeScriptで理解する](https://zenn.dev/fusic/articles/3a4ff465a85dcd)

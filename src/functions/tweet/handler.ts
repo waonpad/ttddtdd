@@ -1,10 +1,10 @@
+import { env } from "@/constants/env";
+import { db } from "@/db";
+import { type Tweet, TweetDynamoDbTable } from "@/db/tables/tweets";
 import { type ValidatedEventAPIGatewayProxyEvent, formatJSONResponse } from "@/libs/api-gateway";
 import { middyfy } from "@/libs/lambda";
+import { sendMailToMe } from "@/utils/send-mail-to-me";
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
-import { env } from "src/constants/env";
-import { db } from "src/db";
-import { type Tweet, TweetDynamoDbTable } from "src/db/tables/tweets";
-import { sendMailToMe } from "src/utils/send-mail-to-me";
 import { TwitterApiReadWrite } from "twitter-api-v2";
 import type schema from "./schema";
 import { createTendonRhythmString, isTendonString } from "./tendon";

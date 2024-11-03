@@ -70,6 +70,8 @@ brew install awscli
 aws configure
 ```
 
+### デプロイ
+
 ```bash
 bun run deploy
 ```
