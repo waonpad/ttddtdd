@@ -1,19 +1,17 @@
 {
   "name": "ttddtdd",
   "version": "1.0.0",
-  "description": "Serverless aws-nodejs-typescript template",
-  "main": "serverless.ts",
   "scripts": {
-    "prepare": "husky",
+    "prepare": "lefthook install",
     "setup": "$npm_execpath install && cp -n .env.local.example .env.local; $npm_execpath run db:i",
     "dev": "sls offline",
     "deploy": "sls deploy",
     "fmt": "biome format --write .",
     "lnt": "biome lint --write .",
     "che": "biome check --write .",
-    "tst": "echo 'vitest run してください'",
-    "tst:w": "vitest watch --silent",
-    "tst:ci": "vitest run --silent",
+    "test": "echo 'vitest run してください'",
+    "test:w": "vitest watch --silent",
+    "test:ci": "vitest run --silent",
     "db:i": "sls dynamodb install",
     "db:mig": "sls dynamodb migrate --stage local",
     "db:start": "sls dynamodb start --stage local",
@@ -34,13 +32,13 @@
     "@biomejs/biome": "^1.8.3",
     "@serverless/typescript": "^3.0.0",
     "@types/aws-lambda": "^8.10.71",
-    "@types/node": "^14.14.25",
+    "@types/node": "^20.0.0",
     "@types/nodemailer": "^6.4.15",
     "dotenv": "^16.4.5",
     "dynamodb-admin": "^4.6.1",
     "esbuild": "^0.23.0",
-    "husky": "^9.1.4",
     "json-schema-to-ts": "^1.5.0",
+    "lefthook": "^1.8.2",
     "serverless": "^3.0.0",
     "serverless-dotenv-plugin": "^6.0.0",
     "serverless-dynamodb": "^0.2.54",
@@ -50,7 +48,5 @@
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.5.4",
     "vitest": "^2.0.5"
-  },
-  "author": "The serverless webpack authors (https://github.com/elastic-coders/serverless-webpack)",
-  "license": "MIT"
+  }
 }
