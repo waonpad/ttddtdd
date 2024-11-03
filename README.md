@@ -58,6 +58,18 @@ AWSのアカウントを用意してここらへんのを見てアクセスキ�
 - [IAM ユーザーのアクセスキーの管理 - AWS Identity and Access Management](https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey)
 - [AWSのアクセスキーを取得する方法 #IAMユーザー - Qiita](https://qiita.com/yamasakk/items/3060d22faeed8e05ebe4)
 
+### AWS CLIをインストール
+
+```bash
+brew install awscli
+```
+
+### AWS CLIでアクセスキーとシークレットキーを設定
+
+```bash
+aws configure
+```
+
 ```bash
 bun run deploy
 ```
